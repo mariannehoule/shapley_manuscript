@@ -5,7 +5,7 @@
 #show: doc => style(doc)
 
 #let title = "Explainable machine learning reveals the different ways bats can host betacoronaviruses "
-#let abstract = "Predictions given by machine learning models are increasingly being used to identify potential new hosts for zoonotic viruses and thus provide valuable information to guide zoonotic risk assessment. However, it is often difficult to interpret these predictions from black-box models and assess trustability. These predictions do not allow us to understand precisely what makes a certain species a potential novel host for pathogens. Here, we use Shapley values, an explainable machine learning method, to extract learned information about the importance and contribution of input features to individual predictions. By using traits as input features, we train a model to predict the status (known host or unknown host) of bat species and interpret the results by quantifying the contribution of each input feature. Our results show that there are various ways in which bats can serve as hosts for betacoronaviruses; that is, several traits have the potential to be important predictors depending on the scale and species. At a global scale, we highlight the importance of the biogeography features of chiropterans in affecting their abilities to host, and possibly to transmit viruses. At the family level, our results suggest that traits that are specific to certain families tend to contribute more importantly for species within the specific family. Finally, we highlight the importance of species-level trait diversity for zoonotic risk predictions."
+#let abstract = "Predictions given by machine learning models are increasingly being used to identify potential new hosts for zoonotic pathogens and thus provide valuable information to guide zoonotic risk assessment. However, it is often difficult to interpret these predictions from black-box models and assess trustability. Specifically, these predictions do not allow us to understand precisely what makes a certain species a potential novel host for pathogens. Here, we use Shapley values, an explainable machine learning method, to extract learned information about the importance and contribution of input features to individual predictions of pathogen hosting status. By using traits as input features, we train a model to predict the betacoronavirus hosting status of bat species and interpret the results by quantifying the contribution of each input feature. Our results show that there are various ways in which bats can serve as hosts for betacoronaviruses; that is, several traits are important predictors depending on phylogenetic scale. At a global scale, we highlight the importance of biogeographic features of chiropterans in affecting their abilities to host, and possibly to transmit, viruses. However, our results also suggest that traits specific to certain families tend to contribute more importantly for species within the specific family. Finally, we highlight the importance of species-level trait diversity for zoonotic risk predictions."
 
 #set page(numbering: "1 of 1")
 
@@ -83,11 +83,6 @@ For this paper, we considered all species not tracked as known hosts in VIRION, 
 The 92 species known to be hosts of betacoronaviruses were assigned binary value 1 (presence of virus interaction). 
 The final output of our host-virus interaction dataset is a list of bat species known to be hosts of betacoronaviruses, along with the binary value associated with their positive status. 
 
-It is important to note the sample biases emerging from collecting data on host-virus interactions. 
-Sampling efforts in bats appear to be disproportional towards easily captured species, and in specific regions and habitats of high-species richness @zamora-gutierrez_spatial_2019 and in countries with ongoing research programs focusing on bat-pathogen sampling @juman_paramyxoviruses_2025.
-For example, countries in the Americas and Oceania are less likely to have data on bat coronaviruses than those in Asia and Europe, as most bat sampling from 1996 to 2019 took place in China with gaps in South Asia, the Americas, and Africa @cohen_coronavirus_2023. 
-As mentioned, there are usually no existing data on absence of host-virus interactions, no records of known non-hosts species, which means the machine learning model is trained on pseudo-absences that, based on those sampling biases, could actually be unsampled known hosts of betacoronaviruses. 
-
 
 === Trait data
 As predictors of our model, we used species traits from the COMBINE database @soria_combine_2021, a publicly available dataset built from an extensive review of published mammal trait sources between 1999 and 2020. 
@@ -102,10 +97,12 @@ We also added the bat family as an input feature to test the likelyhood of clust
 When initially merging the interaction dataset with the trait dataset, nine records from the interaction dataset were left with no match in the trait dataset as the species names in the latter were not updated as they were in interaction dataset. 
 We then manually reconciled these species names following the taxonomies of the IUCN Red List @iucn to update the trait dataset and make sure all hosts species in the interaction data had a correct match in the trait data @gibb_data_2021. 
 We also removed extinct species (seven records in the trait dataset), _sp._ and sub species (10 records in the interaction dataset) that were currently not recognised by the taxonomies of the IUCN Red List. 
-All the species that were not in the interaction dataset -- that had no published record of interacting with betacoronaviruses -- were assigned binary value 0 and identified as unknown hosts. 
+All the species that were not in the interaction dataset -- that had no published record of interacting with betacoronaviruses -- were assigned binary value 0 and identified as unknown hosts, meaning they will be considered as non-interacting with betacoronaviruses within the machine learning process. 
 Our merged interaction-trait dataset covered 1,335 bat species, 92 of which are known hosts, over 20 families (*cite sup mat*).   
 
 === Trait data cleaning
+_revoir ce para_ 
+
 In order to avoid data leakage by overloading the model with duplicate information, we excluded redundant features from COMBINE that were providing very similar information: we removed the diet data collected from EltonTraits to prioritize the diet data collected from PHYLACINE @phylacine. 
 Both of these provided information on the proportion of diet coming from different sources (invertebrates, plants, vertebrates, etc.). 
 The PHYLACINE data were included because of higher completeness, thus needing less additional data imputation. 
@@ -191,6 +188,11 @@ Both SARS-CoV and SARS-CoV-2 likely derived from related bat-borne viruses circu
 The high diversity of bat betacoronaviruses circulating in China is likely the result of a long coevolutionary history @Ruiz-Aravena.
 However, sampling efforts have been very high in China since the emergence of SARS-CoV in 2002, potentially leading to disproportionate sampling and targeting of known betacoronavirus hosts @cohen_coronavirus_2023.
 This sampling bias could therefore inflate the Shapley values in this region.
+
+_It is important to note the sample biases emerging from collecting data on host-virus interactions. 
+Sampling efforts in bats appear to be disproportional towards easily captured species, and in specific regions and habitats of high-species richness @zamora-gutierrez_spatial_2019 and in countries with ongoing research programs focusing on bat-pathogen sampling @juman_paramyxoviruses_2025.
+For example, countries in the Americas and Oceania are less likely to have data on bat coronaviruses than those in Asia and Europe, as most bat sampling from 1996 to 2019 took place in China with gaps in South Asia, the Americas, and Africa @cohen_coronavirus_2023. 
+As mentioned, there are usually no existing data on absence of host-virus interactions, no records of known non-hosts species, which means the machine learning model is trained on pseudo-absences that, based on those sampling biases, could actually be unsampled known hosts of betacoronaviruses._ (valider où mettre ce para)
 
 #figure(
   image("figures/Meeting 24 avril.jpg"),

@@ -68,7 +68,7 @@ Within our case study of bats and betacoronaviruses, we aim to better understand
 = Methods
 In this study, we trained a trait-based ML model to predict the host status of bat species (_i.e._, the label) based on their trait profiles. 
 The model was trained on a large corpus of intrinsic and extrinsic traits (_i.e._, the features). 
-Once the model was trained, we computed Shapley values (see below) to quantify the contribution of each input trait. 
+Once the model was trained, we computed Shapley values (SV) to quantify the contribution of each input trait. 
 All analyses in this study were conducted using primarily MLJ.jl v0.20.9 @Blaom2020 and ShapML.jl v0.3.2 @redell2020shapml on Julia v1.11 @Julia-2017, with the code and data available on GitHub (*link*).
 
 
@@ -76,45 +76,45 @@ All analyses in this study were conducted using primarily MLJ.jl v0.20.9 @Blaom2
 === Host-virus interaction data
 The host-virus interaction data used here were collected from the VIRION database compiled by the Verena Institute @carlson_global_2022. 
 VIRION contains records of empirically collected interactions of vertebrate hosts and viruses compiled from many databases and scientific literature into a common database that automatically updates with new data. 
-For this paper, we used the available data as of august 25th 2025 and filtered it to host order Chiroptera and virus genus _Betacoronavirus_. 
+For this analysis, we used the available data as of August 25th 2025 and filtered it to host order Chiroptera and virus genus _Betacoronavirus_. 
 We removed records for which the hosts were not specified at the species level, leaving us with 92 bat species known as hosts of betacoronaviruses. 
-None of these host species were labeled as positive solely through serology; therefore, it was not necessary to filter the detection methods. 
+None of these host species were labeled as positive solely through serology; therefore, it was not necessary to filter by detection methods. 
 These interaction data are by definition presence only, thus the dataset does not include non-hosts. 
-For this paper, we considered all species not tracked as known hosts in VIRION, within our feature data (since VIRION by definition would not have those species) to be unknown hosts of betacoronaviruses, creating pseudo-absences as opposed to having true absences data. 
+For this analysis, we considered all species not tracked as known hosts in VIRION, within our feature data (since VIRION by definition would not have those species), to be unknown hosts of betacoronaviruses, creating pseudo-absences as opposed to having true absences data. 
 The 92 species known to be hosts of betacoronaviruses were assigned binary value 1 (presence of virus interaction). 
-The final output of our host-virus interaction dataset is a list of bat species known to be hosts of betacoronaviruses, along with the binary value associated with their positive status. 
+The final output of our host-virus interaction dataset is thus a list of bat species known to be hosts of betacoronaviruses, along with the binary value associated with their positive status. 
 
 
 === Trait data
 As predictors of our model, we used species traits from the COMBINE database @soria_combine_2021, a publicly available dataset built from an extensive review of published mammal trait sources between 1999 and 2020. 
 It originally contained 54 intrinsic and extrinsic traits providing useful information on morphology, reproduction, diet, biogeography, life habit, phenology, behavior, home range, and density for 1,342 bat species. 
 COMBINE has the useful feature of imputing missing data for non-biogeographical traits that already have 20% or more of existing data, which makes it more complete than other traits databases such as PanTHERIA @jones_pantheria_2009 or EltonTraits @wilman_eltontraits_2014. 
-Trait data often suffers similar sampling biases as interaction data, especially for bats, which makes it hard to find useable information for certain traits such as life-history. 
-COMBINE data imputation process helped to overcome the availability issues associated with this type of data. 
-For a more complete set of predictors, we also added 15 variables on geographical range, climatic conditions and human population densities from the PanTHERIA database (which covers 1,116 bat species), because these variables seem particularly predictive of host-virus interactions @becker_optimising_2022 @han_undiscovered_2016 @olival_host_2017. 
-We also added the bat family as an input feature to test the likelyhood of clustering among host species @han_undiscovered_2016. 
+Trait data often suffer similar sampling biases as interaction data, especially for bats, which makes it challenging to find useable information for certain traits such as life-history. 
+The COMBINE data imputation process in part helps to overcome the availability issues associated with this type of data. 
+For a more complete set of predictors, we also added 15 variables on geographical range, climatic conditions, and human population densities from the PanTHERIA database (which covers 1,116 bat species), because these variables seem particularly predictive of host-virus interactions @becker_optimising_2022 @han_undiscovered_2016 @olival_host_2017. 
+We also added the bat family as an input feature to test the likelihood of clustering among host species @han_undiscovered_2016. 
 
 === Taxonomic reconciliation 
-When initially merging the interaction dataset with the trait dataset, nine records from the interaction dataset were left with no match in the trait dataset as the species names in the latter were not updated as they were in interaction dataset. 
+When initially merging the interaction dataset with the trait dataset, nine records from the interaction dataset were left with no match in the trait dataset, as the species names in the latter were not updated as they were in interaction dataset. 
 We then manually reconciled these species names following the taxonomies of the IUCN Red List @iucn to update the trait dataset and make sure all hosts species in the interaction data had a correct match in the trait data @gibb_data_2021. 
-We also removed extinct species (seven records in the trait dataset), _sp._ and sub species (10 records in the interaction dataset) that were currently not recognised by the taxonomies of the IUCN Red List. 
+We also removed extinct species (seven records in the trait dataset) as well as _sp._ and sub species (10 records in the interaction dataset) that were currently not recognised by the taxonomies of the IUCN Red List. 
 All the species that were not in the interaction dataset -- that had no published record of interacting with betacoronaviruses -- were assigned binary value 0 and identified as unknown hosts, meaning they will be considered as non-interacting with betacoronaviruses within the machine learning process. 
-Our merged interaction-trait dataset covered 1,335 bat species, 92 of which are known hosts, over 20 families (*cite sup mat*).   
+Our merged interaction-trait dataset covered 1,335 bat species, 92 of which are known hosts, across 20 families (*cite sup mat*).   
 
 === Trait data cleaning
 _revoir ce para_ 
 
-In order to avoid data leakage by overloading the model with duplicate information, we excluded redundant features from COMBINE that were providing very similar information: we removed the diet data collected from EltonTraits to prioritize the diet data collected from PHYLACINE @phylacine. 
-Both of these provided information on the proportion of diet coming from different sources (invertebrates, plants, vertebrates, etc.). 
-The PHYLACINE data were included because of higher completeness, thus needing less additional data imputation. 
+In order to avoid data leakage by overloading the model with duplicate information, we excluded redundant features from COMBINE that provide very similar information: we removed diet data from EltonTraits to prioritize diet data from PHYLACINE @phylacine. 
+Both include data on the proportion of diet coming from different sources (invertebrates, plants, vertebrates, etc.). 
+The PHYLACINE data were included because of higher coverage, thus needing less additional data imputation. 
 We applied two exclusion criteria for the trait data: baseline coverage and variation threshold. 
-For the baseline coverage, we excluded any traits that had more than 50% of missing values @becker_optimising_2022, which mostly impacted life history variables, since this data is particularly sparse for wildlife species. 
+For the baseline coverage, we excluded any traits that greater than 50% of missing values @becker_optimising_2022, which mostly impacted life history variables, since these data are particularly sparse for wildlife species. 
 For the variation threshold, we excluded traits that had more than 97% homogeneity @becker_optimising_2022. 
 This ensured that no variable that is homogeneous to almost all bat species is used in model training, therefore optimizing the classification process. 
 The 50% baseline coverage and the 97% homogeneity thresholds were determined partly by drawing on those used in #cite(<becker_optimising_2022>, form: "prose") and partly by testing stricter and less strict thresholds, neither of which improved the model's performance. 
-Remaining missing values in numeric variables were imputed by the median of the family whereas missing values in categorical variables were replaced by the mode of the family. 
+Remaining missing values in numeric variables were imputed by the median of the family, whereas missing values in categorical variables were replaced by the mode of the family. 
 Two families (Cistugidae and Mystacinidae), both only containing two species, had only missing values for a small amount of traits - which we imputed with the median of all species instead of the median of the family. 
-The cleaned dataset contained 1,335 records of bat species, 45 associated traits and the host status (known or unknown) represented by a binary value. 
+The cleaned dataset contained 1,335 bat species, 45 associated traits, and the host status (known or unknown) represented by a binary value. 
 
 
 == Model training 
@@ -122,10 +122,10 @@ One of the most predictive models from #cite(<becker_optimising_2022>, form: "pr
 We ported this model to the MLJ.jl @Blaom2020  and EvoTrees.jl @jeremie_desgagne_bouchard_2026_18753704 packages on Julia 1.11. 
 To put it simply, the BRT algorithm performs binary classification on the cleaned dataset - predicting host status based on the traits of each species. 
 
-To tune the model, we optimized its classification threshold which means optimizing the threshold value at which the probability of the positive class is considered a positive prediction (host species). 
-Since our data reveals a significant case of class imbalance (92 presence data points versus 1,243 pseudo-absence data points), optimizing the threshold tends to a more predictive model that won't just simply guess the most common class. 
-To do so, we wrapped our inital classifier (BRT) in a binary threshold predictor that evaluates the performance of 30 meta-models each with a different threshold value, between 0 and 1. 
-The optimal threshold (τ ≈ 0,088) was used to make class predictions on the whole dataset. 
+To tune the model, we optimized its classification threshold, which means optimizing the threshold value at which the probability of the positive class is considered a positive prediction (host species). 
+Since our data contained significant class imbalance (92 presence data points versus 1,243 pseudo-absence data points), optimizing the threshold tends to a more predictive model that will not just simply guess the most common class. 
+To do so, we wrapped our inital classifier (BRT) in a binary threshold predictor that evaluates the performance of 30 meta-models, each with a different threshold value, between 0 and 1. 
+The optimal threshold (τ ≈ 0.088) was used to make class predictions on the whole dataset. 
 
 
 == Model validation
@@ -137,27 +137,27 @@ In cross-validation, folds are created each one containing a different variation
 For LOOCV, each fold contains a training set of _n_-1 instances, which leaves one instance for the testing set. 
 The folding process is repeated until all of the instances have been used separately in the testing set. 
 In this study, we used 1,335 folds each containing a training set of 1,334 instances and a testing set of only one instance. 
-The model was then trained on every fold which means that every single instance was used at some point in the process to train the model, making it an exhaustive method for doing cross-validation. 
+The model was then trained on every fold, which means that every single instance was used at some point in the process to train the model, making it an exhaustive method for doing cross-validation. 
 
-The Matthews Correlation Coefficient (MCC) was used to measure the performance of the model as it's been identified as the most appropriate measure @chicco_matthews_2023 because it is optimized only when the model achieves a good score in each of the four quadrants of the confusion matrix—that is, when the model performs well at everything. 
+The Matthews correlation coefficient (MCC) was used to measure the performance of the model as it has been identified as the most appropriate measure @chicco_matthews_2023, because it is optimized only when the model achieves a good score in each of the four quadrants of the confusion matrix—that is, when the model performs well at everything. 
 The coefficient is a value between -1 (the predictions are opposite to the actual values) and +1 (the predictions are perfectly accurate), where zero represents random predictions. 
 For our study, we report an MCC of 0.399, which means that our model performs better than random predictions. 
-Since our goal is to study the model's behavior rather than the accuracy of its predictions, we consider this MCC to be satisfactory and consider the model performs well enough for the analyses we will conduct.  
+Since our goal is to study the model's behavior rather than the accuracy of its predictions, we consider this MCC to be satisfactory.  
 
 == Shapley values
-In an explainable ML approach, Shapley values (SV) are post-hoc explanations, meaning they are computed once the model is trained and predictions have been generated. Originally, SV analysis was developed for coalition game theory to assign each player of a coalition an importance score that quantifies its contribution to the game payout @Roth1988-wb. 
+In an explainable ML approach, SV are post-hoc explanations, meaning they are computed once the model is trained and predictions have been generated. Originally, SV were developed for coalition game theory to assign each player of a coalition an importance score that quantifies its contribution to the game payout @Roth1988-wb. 
 In our case, the game payout corresponds to an actual prediction, minus the average prediction, and each player are input features that led to this prediction. 
 SV quantify each input feature’s contribution to moving the actual prediction from the average prediction @wadoux_shapley_2023. 
 In other words, this method allows us to quantify, for each species, the contribution of the traits that led to the known host or unknown host prediction. 
 SV were computed using ShapML.jl v0.3.2 for Julia with a Monte-Carlo sample size of _n_ = 500. 
 
-Once computed, we first used the Shapley values to rank the most important traits as predictors of the host status of bats for beta-coronaviruses by calculating the mean of the absolute Shapley values per trait for known hosts and unknown hosts. 
+Once computed, we first used SV to rank the most important traits as predictors of the host status of bats for betacoronaviruses by calculating the mean of the absolute SV per trait for known and unknown hosts. 
 We used scatterplots to visualize individual data-points for the most predictive features and assess trends. 
 Then, we ranked the most important traits per bat family to assess taxonomic-specific trends. 
-To do so, we focused our analyses on families that contained three or more host species according to VIRION database as of august 25th 2025: Vespertilionidae, Rhinolophidae, Pteropodidae, Phyllostomidae, Molossidae, Mormoopidae and Hipposideridae (*Supplementary material*) and on features whose contributions add up to 75% of total contribution for known hosts. 
-Finally, we used species-level Shapley values to compare inter- and intra-family trends. 
-For inter-family comparison, we picked the species with the largest range area belonging to each of the selected families. 
-For the intra-family, we selected the seven species with the largest range belonging to the family of Vespertilionidae, since this is the family with the greatest number of species.
+To do so, we focused our analyses on families that contained three or more betacoronavirus-positive species according to the VIRION database as of August 25th 2025 (Vespertilionidae, Rhinolophidae, Pteropodidae, Phyllostomidae, Molossidae, Mormoopidae and Hipposideridae; *Supplementary material*) and on features whose contributions add up to 75% of total contribution for known hosts. 
+Finally, we used species-level SV to compare inter- and intra-family trends. 
+For the inter-family comparison, we picked the species with the largest range area belonging to each of the selected families. 
+For the intra-family comparison, we selected the seven species with the largest range belonging to the family of Vespertilionidae, since this is the family with the greatest number of species.
 
 = Results and discussion 
 
@@ -190,10 +190,10 @@ The high diversity of bat betacoronaviruses circulating in China is likely the r
 However, sampling efforts have been very high in China since the emergence of SARS-CoV in 2002, potentially leading to disproportionate sampling and targeting of known betacoronavirus hosts @cohen_coronavirus_2023.
 This sampling bias could therefore inflate the Shapley values in this region.
 
-_It is important to note the sample biases emerging from collecting data on host-virus interactions. 
-Sampling efforts in bats appear to be disproportional towards easily captured species, and in specific regions and habitats of high-species richness @zamora-gutierrez_spatial_2019 and in countries with ongoing research programs focusing on bat-pathogen sampling @juman_paramyxoviruses_2025.
+_It is important to note the sampling biases emerging from collecting data on host-virus interactions. 
+Sampling efforts in bats appear to be disproportional towards easily captured species, in specific regions and habitats of high species richness @zamora-gutierrez_spatial_2019, and in countries with ongoing research programs focusing on bat-pathogen sampling @juman_paramyxoviruses_2025.
 For example, countries in the Americas and Oceania are less likely to have data on bat coronaviruses than those in Asia and Europe, as most bat sampling from 1996 to 2019 took place in China with gaps in South Asia, the Americas, and Africa @cohen_coronavirus_2023. 
-As mentioned, there are usually no existing data on absence of host-virus interactions, no records of known non-hosts species, which means the machine learning model is trained on pseudo-absences that, based on those sampling biases, could actually be unsampled known hosts of betacoronaviruses._ (valider où mettre ce para)
+As mentioned, there are usually no existing data on true absence of host-virus interactions, no records of known non-hosts species, which means the ML model is trained on pseudo-absences that, based on those sampling biases, could actually be unsampled known hosts of betacoronaviruses._ (valider où mettre ce para)
 
 #figure(
   image("figures/Meeting 24 avril.jpg"),

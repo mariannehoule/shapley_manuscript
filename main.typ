@@ -24,12 +24,13 @@ Total word count : #total-words
 
 = Introduction
 
-Chiroptera is a rich order of 1,511 species @Simmons2026-nh accounting for 20% of all mammal diversity and that has existed for over fifty-two million years. 
-Bats are extremely diverse in terms of habitats -- they are distributed over all continents except the polar regions -- diets -- insectivorous, carnivorous, frugivorous, nectariferous, piscivorous and even sanguinivorous -- and traits.  
+The Chiroptera is a rich order of 1,515 species @Simmons2026-nh accounting for 20% of all mammal diversity and that has existed for over fifty-two million years. 
+Bats are extremely diverse in terms of habitats -- they are distributed over all continents except the polar regions -- diets -- insectivorous, carnivorous, frugivorous, nectariferous, piscivorous and even sanguinivorous -- and other traits.  
 One of their most distinctive features is their capacity for hosting and transmitting pathogens such as zoonotic viruses.
 Bats have been considered hyper-reservoirs based on the hypothesis that they disproportionately host viruses @luis_comparison_2013, although recent work suggests their high viral richness instead reflects the speciose nature of this order and substantial sampling effects @mollentze_viral_2020 @albery_urban-adapted_2022. 
 However, bats do host many zoonotic viruses without showing disease, which likely reflects distinct immune adaptations @chan_interspecies_2013@irving_lessons_2021@nabi_bats_2021. 
-The immune system of bats has often been studied as a monolith, whereas recent studies demonstrate great immunological diversity among families and even within genera. #cite(<becker_2025>, form: "prose") has highlighted how the diversity of traits within this order is linked to diversity and heterogeneity in immune responses. 
+The immune system of bats has often been studied as a monolith, whereas recent studies demonstrate great immunological diversity among families and even within genera. 
+#cite(<becker_2025>, form: "prose") have highlighted how the diversity of traits within this order is linked to diversity and heterogeneity in immune responses. 
 In addition, certain ecological traits such as large range area, diet diversity, high population densities, longevity and spatial mobility may predispose bats to hosting and transmitting pathogens @olival_host_2017 @albery_urban-adapted_2022@chan_interspecies_2013. 
 This suggests that traits are key factors as to why bats play such an important role as hosts of zoonotic viruses. 
 In that sense, we can expect that the importance and the diversity of traits are linked to diverse immunological responses among bat species, thereby enabling multiple ways for a bat to serve as a host for zoonotic viruses.
@@ -39,7 +40,7 @@ They function by learning patterns inherent in hosting status to identify the tr
 Macroecological features, such as geographical range area and range limits, and intrinsic traits associated with reproductive outputs, have been key predictors of the zoonotic status of rodents @han_rodent_2015, primates @han_confronting_2019, and bats @han_undiscovered_2016. 
 In a recent study, #cite(<becker_optimising_2022>, form: "prose") developed an ensemble of eight models, including four network-based models, three trait-based models, and one hybrid model, to predict host-virus interactions. Each of these models generated a list of bat species that are potential hosts for betacoronaviruses, to then provide sampling recommendations for novel hosts and virus discovery. 
 The entire pipeline was repeated a year later using the most recent data on the detection of new betacoronavirus host species. With improved performance, the revised ensemble model predicted more than 400 potential undetected bat hosts of betacoronaviruses. 
-Such method provides valuable information to guide biodiversity surveillance and wildlife disease monitoring @Poisot_fellow, as it highlights species that represent high priority targets for empirical evaluation. 
+Such method provides valuable information to guide biodiversity surveillance and wildlife disease monitoring @Poisot_fellow, as it highlights species that represent high-priority targets for empirical evaluation. 
 
 However, predictions returned by these models often lack epistemic transparency in the sense that we know what the model predicts, but we don't understand which particular features are influencing the predictions. 
 Although some proposals based on _e.g._ dimensionality reduction through embedding @Strydom suggest that we can draw correlative explanations from predictive models, they still fall short of providing easily interpretable justifications for individual predictions. 
@@ -47,10 +48,10 @@ This is a strong limitation to the adoption of model-based predictions of zoonot
 The lack of epistemic transparency in ML causes two major limitations: predictions can be difficult to trust and to translate into action, and the results do not imply any connection between the the ecology of hosts and their ability to carry zoonotic pathogens.
 
 Explainable ML is emerging as a series of methodological practices that generate more interpretable models and model outcomes, with demonstrated potential to improve adoption of these models amongst policymakers @amarasinghe_explainable_2023. 
-As suggested by @adadi_peeking_2018 @molnar2025, interpretability in the context of machine learning enables to achieve three main goals, or at least make progress towards: improvement and control of the model, justification of the model and its predictions, and insights discovery. 
-We will focus on justification and discovery. 
+As suggested by @adadi_peeking_2018 @molnar2025, interpretability in the context of ML enables researchers to achieve three main goals, or at least make progress towards: improvement and control of the model, justification of the model and its predictions, and insights discovery. 
+We here focus on justification and discovery. 
 The goal of interpreting and justifying predictions given by a ML model is to increase credibility towards stakeholders, particularly decision-makers, and gain trust. 
-Another key use of explainable machine learning is to explore and discover unexpected relationships between the features and the predictions. 
+Another key use of explainable ML is to explore and discover unexpected relationships between the features and the predictions. 
 Since a ML model learns patterns inherent in the data, this can be used to explore previously unknown or unexpected relationships and underlying mechanisms that would challenge and possibly improve domain knowledge. 
 To do this, one must be able to extract the information learned by the model.
 
@@ -59,7 +60,7 @@ More precisely, we want to provide explanations as to _why_ a specific predictio
 We hypothesize that geographical features, _e.g_ range area and range limits, and traits linked to reproductive output will contribute to predicting bat hosts of betacoronaviruses, as these traits have been previously linked to predicting bat hosts of filoviruses @han_undiscovered_2016. 
 This study also aims to discover insights by extracting learned information from a translucent predictive model that may yield unexpected underlying mechanistic processes governing host-virus interactions. 
 In other words, this is a diagnostic approach in which we use an already trained model to examine its behavior rather than the predictions it makes. 
-We are trying to understand what the model has learned about the ecology of host-virus interactions during its training process. 
+Our goal is to understand what the model has learned about the ecology of host-virus interactions during its training process. 
 Within our case study of bats and betacoronaviruses, we aim to better understand the mechanistic causes that make bats such important hosts, in some cases reservoirs, of highly pathogenic viruses, especially how bat traits, and diversity thereof, are key factors in host-virus interactions.
 
 

@@ -61,7 +61,7 @@ We hypothesize that geographical features, _e.g_ range area and range limits, an
 This study also aims to discover insights by extracting learned information from a translucent predictive model that may yield unexpected underlying mechanistic processes governing host-virus interactions. 
 In other words, this is a diagnostic approach in which we use an already trained model to examine its behavior rather than the predictions it makes. 
 Our goal is to understand what the model has learned about the ecology of host-virus interactions during its training process. 
-Within our case study of bats and betacoronaviruses, we aim to better understand the mechanistic causes that make bats such important hosts, in some cases reservoirs, of highly pathogenic viruses, especially how bat traits, and diversity thereof, are key factors in host-virus interactions.
+Within our case study of bats and betacoronaviruses, we aim to better understand the mechanistic causes that make bats such important hosts, in some cases reservoirs, of highly pathogenic viruses, especially how bat traits, and diversity thereof, are key factors in host-virus interactions @cummings_viral_2025.
 
 
 
@@ -72,8 +72,7 @@ Once the model was trained, we computed Shapley values (SV) to quantify the cont
 All analyses in this study were conducted using primarily MLJ.jl v0.20.9 @Blaom2020 and ShapML.jl v0.3.2 @redell2020shapml on Julia v1.11 @Julia-2017, with the code and data available on GitHub (*link*).
 
 
-== Data
-=== Host-virus interaction data
+== Host-virus interaction data
 The host-virus interaction data used here were collected from the VIRION database compiled by the Verena Institute @carlson_global_2022. 
 VIRION contains records of empirically collected interactions of vertebrate hosts and viruses compiled from many databases and scientific literature into a common database that automatically updates with new data. 
 For this analysis, we used the available data as of August 25th 2025 and filtered it to host order Chiroptera and virus genus _Betacoronavirus_. 
@@ -85,7 +84,7 @@ The 92 species known to be hosts of betacoronaviruses were assigned binary value
 The final output of our host-virus interaction dataset is thus a list of bat species known to be hosts of betacoronaviruses, along with the binary value associated with their positive status. 
 
 
-=== Trait data
+== Trait data
 As predictors of our model, we used species traits from the COMBINE database @soria_combine_2021, a publicly available dataset built from an extensive review of published mammal trait sources between 1999 and 2020. 
 It originally contained 54 intrinsic and extrinsic traits providing useful information on morphology, reproduction, diet, biogeography, life habit, phenology, behavior, home range, and density for 1,342 bat species. 
 COMBINE has the useful feature of imputing missing data for non-biogeographical traits that already have 20% or more of existing data, which makes it more complete than other traits databases such as PanTHERIA @jones_pantheria_2009 or EltonTraits @wilman_eltontraits_2014. 
@@ -94,14 +93,14 @@ The COMBINE data imputation process in part helps to overcome the availability i
 For a more complete set of predictors, we also added 15 variables on geographical range, climatic conditions, and human population densities from the PanTHERIA database (which covers 1,116 bat species), because these variables seem particularly predictive of host-virus interactions @becker_optimising_2022 @han_undiscovered_2016 @olival_host_2017. 
 We also added the bat family as an input feature to test the likelihood of clustering among host species @han_undiscovered_2016. 
 
-=== Taxonomic reconciliation 
+== Taxonomic reconciliation 
 When initially merging the interaction dataset with the trait dataset, nine records from the interaction dataset were left with no match in the trait dataset, as the species names in the latter were not updated as they were in interaction dataset. 
 We then manually reconciled these species names following the taxonomies of the IUCN Red List @iucn to update the trait dataset and make sure all hosts species in the interaction data had a correct match in the trait data @gibb_data_2021. 
 We also removed extinct species (seven records in the trait dataset) as well as _sp._ and sub species (10 records in the interaction dataset) that were currently not recognised by the taxonomies of the IUCN Red List. 
 All the species that were not in the interaction dataset -- that had no published record of interacting with betacoronaviruses -- were assigned binary value 0 and identified as unknown hosts, meaning they will be considered as non-interacting with betacoronaviruses within the machine learning process. 
 Our merged interaction-trait dataset covered 1,335 bat species, 92 of which are known hosts, across 20 families (*cite sup mat*).   
 
-=== Trait data cleaning
+== Data cleaning and imputation
 _revoir ce para_ 
 
 In order to avoid data leakage by overloading the model with duplicate information, we excluded redundant features from COMBINE that provide very similar information: we removed diet data from EltonTraits to prioritize diet data from PHYLACINE @phylacine. 
@@ -154,10 +153,10 @@ SV were computed using ShapML.jl v0.3.2 for Julia with a Monte-Carlo sample size
 Once computed, we first used SV to rank the most important traits as predictors of the host status of bats for betacoronaviruses by calculating the mean of the absolute SV per trait for known and unknown hosts. 
 We used scatterplots to visualize individual data-points for the most predictive features and assess trends. 
 Then, we ranked the most important traits per bat family to assess taxonomic-specific trends. 
-To do so, we focused our analyses on families that contained three or more betacoronavirus-positive species according to the VIRION database as of August 25th 2025 (Vespertilionidae, Rhinolophidae, Pteropodidae, Phyllostomidae, Molossidae, Mormoopidae and Hipposideridae; *Supplementary material*) and on features whose contributions add up to 75% of total contribution for known hosts. 
+To do so, we focused our analyses on families that contained three or more betacoronavirus-positive species in the VIRION database as of August 25th 2025 (Vespertilionidae, Rhinolophidae, Pteropodidae, Phyllostomidae, Molossidae, Mormoopidae and Hipposideridae; *Supplementary material*) and on features whose contributions add up to 75% of total contribution for known hosts. 
 Finally, we used species-level SV to compare inter- and intra-family trends. 
 For the inter-family comparison, we picked the species with the largest range area belonging to each of the selected families. 
-For the intra-family comparison, we selected the seven species with the largest range belonging to the family Vespertilionidae, since this is the family with the greatest number of species.
+For the intra-family comparison, we selected the seven species with the largest range belonging to the family Vespertilionidae, since this is the family with the greatest number of species @soria_combine_2021.
 
 = Results and discussion 
 
@@ -172,13 +171,13 @@ The reason only a small fraction of features account for a high proportion of to
 The top three features probably add a lot of information as predictors, whereas the other features add less information or none at all. 
 
 #figure(
-  image("figures/aug_shap.png"),
-  caption: [*Mean of absolute Shapley values for each feature grouped by status.* For each species, the BRT model predicted probabilities for each of the two possible classes (0 indicating the absence of the virus, 1 indicating the presence of the virus). SV were calculated based on the probability of the positive class. Each trait for each species was assigned a SV that quantifies its contribution to the prediction. To better illustrate this, we used the absolute SV to calculate the average by actual status (as opposed to predicted status): known hosts and unknown hosts.]
+  image("figures/aug_shap.png", width: 80%),
+  caption: [*Mean of absolute SV for each feature grouped by status.* For each species, the BRT model predicted probabilities for each of the two possible classes (0 indicating the absence of the virus, 1 indicating the presence of the virus). SV were calculated based on the probability of the positive class. Each trait for each species was assigned a SV that quantifies its contribution to the prediction. To better illustrate this, we used the absolute SV to calculate the average by actual status (as opposed to predicted status): known hosts and unknown hosts.]
 ) <total>
 
 These results highlight the importance of biogeographical features, specifically range area and range limits, as predictors of hosts of betacoronaviruses.
 @trois shows how a larger geographic range area corresponds to higher SV, which means that larger areas contribute more importantly to the predictions.
-From an ecological standpoint, a larger area could increase encounters with other species and thus increase risks of transmission and exposure to pathogens.
+From an ecological standpoint, a larger area could increase encounters with other species and thus increase risks of transmission and exposure to pathogens @Guy_Ratcliffe_Mideo_2020 @Lindenfors_Nunn_Jones_Cunningham_Sechrest_Gittleman_2007.
 A recent study highlighted that larger range size predicts higher viral diversity in bat species @becker_2025, which also underscores the importance of range area as a key factor in determining the viral status of bats.
 We observe that maximum latitude values greater than 25°N are associated with higher SV, whereas those less than 25°N tend toward zero (@trois).
 We expected that maximum latitudes reflecting relatively southern distribution ranges would contribute significantly -- based on predictions of increased new interactions in the Amazon and new mammal hosts in Africa @poisot_network_2023 -- but it turned out to be the opposite.
@@ -196,7 +195,7 @@ For example, countries in the Americas and Oceania are less likely to have data 
 As mentioned, there are usually no existing data on true absence of host-virus interactions, no records of known non-hosts species, which means the ML model is trained on pseudo-absences that, based on those sampling biases, could actually be unsampled known hosts of betacoronaviruses._ (valider où mettre ce para)
 
 #figure(
-  image("figures/Meeting 24 avril.jpg"),
+  image("figures/Meeting 24 avril.jpg", width: 80%),
   caption: [*A.* Relationship between SV and the range area value for each species. The gray points represent species that are unknown hosts, while the blue points represent species that are known hosts. *B.* Maximum latitude and mid longitude limits of range for each species and associated SV. Pink color represent lower SV, whereas blue represent higher SV. *C.* Relationship between SV and the mean population density value for each species. The gray points represent species that are unknown hosts, while the blue points represent species that are known hosts.]
 ) <trois>
 
@@ -213,14 +212,14 @@ The importance of higher human population densities as a predictor of host statu
 We found that there are various ways to serve as a host for betacoronaviruses across phylogenetic scales, and that the family-level scale shows how traits that are specific to a certain family also tends to become its most important predictors.
 As shown in @facet, some traits such as range area, adult body mass, and interbirth interval contribute differently depending on the family.
 However, some other traits contribute in a similar way across families, _e.g._ habitat breadth, which can be unexpected considering that habitat breadth is usually linked to geographic range size.
-One might think that the contribution of habitat would be of the same magnitude as that of the range size.
-However, Shapley values tend to boost the most informative features, here range area, whereas habitat breadth likely does not add more information.
+One might think that the contribution of habitat breadth would be similar as that of the range size, since a larger geographic range might result in occupying more different habitats @Lindenfors_Nunn_Jones_Cunningham_Sechrest_Gittleman_2007.
+However, SV tend to boost the most informative features, here range area, whereas habitat breadth likely does not add more information.
 The family-specific traits that stand out the most are range area for the Molossidae, adult body mass and forearm length for the Pteropodidae, family for the Mormoopidae, and interbirth interval for the Phyllostomidae.
 Families with a small number of host species, such as the Molossidae and the Phyllostomidae, can stand out more easily from the global average.
 In contrast, the Vespertilionidae, a family with a large number of host species, do not have traits whose contribution are particularly distinct or high. 
 
 #figure(
-  image("figures/aug_shap_hosts.png"),
+  image("figures/aug_shap_hosts.png", width: 80%),
   caption: [*Mean SV of the selected features to predictions of host species grouped by family*. The selected features are those whose contributions account for 75% of the total contributions. We selected the families that contained three or more host species: Vespertilionidae, Rhinolophidae, Pteropodidae, Phyllostomidae, Mormoopidae, Molossidae, and Hipposideridae. The total contribution (dark blue) represents the average for all hosts species (_n_ = 92) belonging to any of the 20 families included in the initial dataset. ]
 ) <facet>
 
@@ -238,7 +237,7 @@ As opposed to large birds and non-flying mammals, bat immune cell proportions do
 The morphological traits of the Pteropodidae are highly specific and distinct from other families, and they appear to be key factors in explaining why these species are hosting betacoronaviruses.   
 
 #figure(
-  image("figures/aug_bodymass_hosts_fams.png", width: 90%),
+  image("figures/aug_bodymass_hosts_fams.png", width: 70%),
   caption: [*Relationship between SV and body mass values for species hosts of betacoronaviruses.* The different colors represent the families, selected based on the number of species they contain: Vespertilionidae, Rhinolophidae, Pteropodidae, Phyllostomidae, Molossidae, Mormoopidae and Hipposideridae. Each dot represents a species known to be host of betacoronaviruses.]
 )<bodymass>
 
@@ -262,7 +261,7 @@ Thus, shorter birth intervals appear to be an important determinant of host stat
 
 
 #figure(
-  image("figures/aug_birth_hosts.png", width: 90%),
+  image("figures/aug_birth_hosts.png", width: 70%),
   caption: [*Relationship between SV and interbirth interval values for species hosts of betacoronaviruses* The different colors represent the families, selected based on the number of species they contain: Vespertilionidae, Rhinolophidae, Pteropodidae, Phyllostomidae, Molossidae, Mormoopidae and Hipposideridae. Each dot represents a species known to be host of betacoronaviruses.]
 )<birth>
 
@@ -270,12 +269,11 @@ Thus, shorter birth intervals appear to be an important determinant of host stat
 One of the most interesting properties of SV is their ability to explain an individual prediction.
 Here, we seek to understand what makes bat species host betacoronaviruses and how this varies from one to another.
 @ens shows variations in traits contribution among species, at both the inter-family and intra-family scales.
-There is considerable variation in Shapley values among species, both within and across families.
 As expected, species from different families have different SV and exhibit patterns similar to those seen in the family-level analysis: *a)* interbirth interval is important for the species within the  family Phyllostomidae, *b)* the family feature contributes highly for the mormoopid species and the rhinolophid species and *c)* range size, maximum latitude and human population density are overall highly predictive of bat hosts.
 On the other hand, body mass does not play a significant role in predicting the status of the pteropodid species. 
 
 #figure(
-  image("figures/interspecific_variation.png"),
+  image("figures/interspecific_variation.png", width: 80%),
   caption: [*Comparison of interspecific variation in SV, both inter-family and intra-family.* Inter-family (the species with the largest range area for each of the targeted families): _Myotis laniger_ (Vespertilionidae), _Rhinolophus malayanus_ (Rhinolophidae), _Epomophorus pusillus_ (Pteropodidae), _Glossophaga leachii_ (Phyllostomidae), _Mops plicatus_ (Molossidae), _Pteronotus parnellii_ (Mormoopidae), _Hipposideros ruber_ (Hipposideridae). Intra-family (the seven species with the largest range area belonging to the family of Vespertilionidae) : _Myotis laniger_, _Pipistrellus pipistrellus_, _Cnephaeus serotinus_, _Vespertilio sinensis_, _Kerivoula furva_, _Submyotodon latirostris_, _Myotis davidii_.]
 ) <ens>
 

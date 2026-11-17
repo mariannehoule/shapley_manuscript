@@ -288,14 +288,14 @@ As conceptualized by #cite(<Graham_Storch_Machac_2018>, form: "prose"), the spec
 Our results demonstrate how important it is to study the ecology of bat hosts at the finest scale possible in order to gain a better understanding of the interactions between bats and viruses and to better understand what makes bat species such important hosts and even reservoirs.
 
 = Conclusion 
-We demonstrated how Shapley values, a post-hoc method of explainable machine learning, can be used to interpret individual predictions and also how they can be used to have a better understanding of global and family-level importance of input features.
-We used Shapley values as a way to quantify the importance of traits to predictions, but also as an exploratory approach to investigate unknown or unexpected relationships between traits and host status.
-Our results demonstrate there are various ways to serve as a bat host of betacoronaviruses across scales (global, family, specific) and each of these scales show a different pattern.
-At the global scale, range area, maximum range limits and human population density are the most important predictors of host species.
+We demonstrated how SV, a post-hoc method of explainable machine learning, can be used to interpret individual predictions and also how they can be used to have a better understanding of global, family-level and species-level importance of input features.
+We used SV not only as a way to quantify the importance of traits to predictions, but also as an exploratory approach to investigate unknown or unexpected relationships between traits and host status.
+Our results demonstrate there are various ways to serve as a bat host of betacoronaviruses across phylogenetic scales (global, family, species), and each of these scales show a different pattern.
+At the global scale, range area, maximum range limits, and human population density are the most important predictors of host species.
 This allows us to identify key predictors at the macroecological scale, which underscores the previously highlighted importance of the biogeography of bat hosts of betacoronaviruses @forero-munoz_coevolutionary_2024.
-At the family level, the variation in Shapley values seem to recapture the distinctive characteristics specific to certain families. 
+At the family level, the variation in SV seem to recapture the distinctive characteristics specific to certain families. 
 Intrinsic features such as morphology (_i.e.,_ body mass for pteropodids) and life-history traits (_i.e.,_ interbirth interval for phyllostomids) gain importance as predictors.
-At the species level, there is a marked variation in Shapley values both among species from different families and among species within the same family.
+At the species level, there is a marked variation in SV both among species from different families and among species within the same family.
 All kind of traits have the potential to become important predictors.
 In this study, we showed that traits, and the diversity thereof, are important predictors of bat hosts of betacoronaviruses and that they are key factors as to why so many different species can serve as hosts.
 Traits are important features that recapture evolutionary history underlying the abilities of many bat species to serve as hosts of zoonotic viruses @han_undiscovered_2016.
@@ -303,12 +303,12 @@ Traits are important features that recapture evolutionary history underlying the
 Each of these scales also seems to recapture existing sampling phylogenetic or geographic biases.
 Due to their reliance on ecological traits, environmental covariates, and phylogenetic relationships, trait-based models tend to reflect spatial and phylogenetic trends @becker_optimising_2022.
 At the global scale, the most predictive features (range area, maximum latitude and human population density) appear to be closely linked to geographic sampling biases and to proximity to areas of high population density @cohen_coronavirus_2023 @albery_urban-adapted_2022.
-When looking at Shapley values by family, we risk to recapture phylogenetic sampling biases.
+When looking at SV by family, we risk to recapture phylogenetic sampling biases.
 For example, the model learned that belonging to the Mormoopidae family is a significant predictor of host status for species within that family, which is likely a bias resulting from the small number of species in that family and the high ratio of hosts and unknown hosts.
 Nonetheless, this result demonstrates the model’s ability to effectively capture trends during training and to highlight them when making predicting host status of bats. 
 
-Our approach has demonstrated the usefulness of Shapley values as a post-hoc, model-agnostic method for interpreting individual predictions.
-This method can easily be applied to models that have already been trained and can also be used on new samples, making it very efficient and versatile to improve the transparency of machine learning models. 
+Our approach has demonstrated the usefulness of SV as a post-hoc, model-agnostic method for interpreting individual predictions.
+This method can easily be applied to models that have already been trained and can also be used on new samples, making it very efficient and versatile to improve the transparency of ML models. 
 
 = Acknowledgments 
 

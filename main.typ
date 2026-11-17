@@ -157,38 +157,38 @@ Then, we ranked the most important traits per bat family to assess taxonomic-spe
 To do so, we focused our analyses on families that contained three or more betacoronavirus-positive species according to the VIRION database as of August 25th 2025 (Vespertilionidae, Rhinolophidae, Pteropodidae, Phyllostomidae, Molossidae, Mormoopidae and Hipposideridae; *Supplementary material*) and on features whose contributions add up to 75% of total contribution for known hosts. 
 Finally, we used species-level SV to compare inter- and intra-family trends. 
 For the inter-family comparison, we picked the species with the largest range area belonging to each of the selected families. 
-For the intra-family comparison, we selected the seven species with the largest range belonging to the family of Vespertilionidae, since this is the family with the greatest number of species.
+For the intra-family comparison, we selected the seven species with the largest range belonging to the family Vespertilionidae, since this is the family with the greatest number of species.
 
 = Results and discussion 
 
 == Global drivers of  predictions for bat-betacoronaviruses interactions
-In @total, we present the global importance, represented by mean Shapley values, of each trait to the predictions made by the ML model. 
-The most important predictor is geographic range area, followed by maximum latitude and mean human population density. These three features are the most important, although to varying degrees, both in known hosts and unknown hosts.
-They stand out particularly from the other features with respective contributions of around 17%, 12%, and 10%, accounting for 39% of total contribution.
+In @total, we present the global importance, represented by mean SV, of each trait to the predictions made by the ML model. 
+The most important predictor of betacoronavirus hosting status is geographic range area, followed by maximum latitude and mean human population density. These three features are the most important, although to varying degrees, both in known hosts and unknown hosts.
+They stand out particularly from the other features with respective contributions of around 17%, 12%, and 10%, accounting for 39% of the total contribution.
 The fourth most important variable (maximum longitude) contributes only around 5%, and thereafter we observe a steady decline in contributions down to zero.
 The thirteen most important features for hosts account for around 75% of the total contribution and were used for further analysis.
-A similar pattern is observed in the contributions of unknown host species, although the Shapley values are of smaller magnitude.
-The reason only a small fraction of features account for a high proportion of total contribution can be explained by the way Shapley values analysis will boost the most informative features.
-The top three features probably add a lot of information as predictors, whereas the other features add less information, or none at all. 
+A similar pattern is observed in the contributions of unknown host species, although the SV are of smaller magnitude.
+The reason only a small fraction of features account for a high proportion of total contribution can be explained by the way SV will boost the most informative features.
+The top three features probably add a lot of information as predictors, whereas the other features add less information or none at all. 
 
 #figure(
   image("figures/aug_shap.png"),
-  caption: [*Mean of absolute Shapley values for each feature grouped by status.* For each species, the BRT model predicted probabilities for each of the two possible classes (0 indicating the absence of the virus, 1 indicating the presence of the virus). Shapley values were calculated based on the probability of the positive class. Each trait for each species was assigned a Shapley value that quantifies its contribution to the prediction. To better illustrate this, we used the absolute Shapley values to calculate the average by actual status (as opposed to predicted status); known hosts and unknown hosts.]
+  caption: [*Mean of absolute Shapley values for each feature grouped by status.* For each species, the BRT model predicted probabilities for each of the two possible classes (0 indicating the absence of the virus, 1 indicating the presence of the virus). SV were calculated based on the probability of the positive class. Each trait for each species was assigned a SV that quantifies its contribution to the prediction. To better illustrate this, we used the absolute SV to calculate the average by actual status (as opposed to predicted status): known hosts and unknown hosts.]
 ) <total>
 
 These results highlight the importance of biogeographical features, specifically range area and range limits, as predictors of hosts of betacoronaviruses.
-@trois shows how bigger range area corresponds to higher Shapley values which means that larger areas contribute more importantly to the predictions.
+@trois shows how a larger geographic range area corresponds to higher SV, which means that larger areas contribute more importantly to the predictions.
 From an ecological standpoint, a larger area could increase encounters with other species and thus increase risks of transmission and exposure to pathogens.
 A recent study highlighted that larger range size predicts higher viral diversity in bat species @becker_2025, which also underscores the importance of range area as a key factor in determining the viral status of bats.
-We observe that maximum latitude values greater than 25°N are associated with higher Shapley values, whereas those less than 25°N tend toward zero (@trois).
+We observe that maximum latitude values greater than 25°N are associated with higher SV, whereas those less than 25°N tend toward zero (@trois).
 We expected that maximum latitudes reflecting relatively southern distribution ranges would contribute significantly -- based on predictions of increased new interactions in the Amazon and new mammal hosts in Africa @poisot_network_2023 -- but it turned out to be the opposite.
-The highest Shapley values correspond to maximum latitudes between 25°N and 75°N and maximum longitudes between 60°E and 130°E (@trois), suggesting that these species range primarily in Europe and Asia, including a cluster in Eastern Asia.
+The highest SV correspond to maximum latitudes between 25°N and 75°N and maximum longitudes between 60°E and 130°E (@trois), suggesting that these species range primarily in Europe and Asia, including a cluster in Eastern Asia.
 This result shows that range limits (maximum latitude and maximum longitude) located in Europe and Asia, particularly in China, are important predictors of bat hosts of betacoronaviruses.
-China is home to more than 100 species of bats, some of which are endemic, with many betacoronaviruses circulating in bats particularly in China and Southeast Asia @wacharapluesadee_evidence_2021 @latinne_origin_2024.
-Both SARS-CoV and SARS-CoV-2 likely derived from related bat-borne viruses circulating in Chinese bats @worobey_huanan_2022.
+China is home to more than 100 species of bats, some of which are endemic, with many betacoronaviruses circulating @wacharapluesadee_evidence_2021 @latinne_origin_2024.
+Both SARS-CoV and SARS-CoV-2 likely derived from related bat-borne sarbecoviruses circulating in Southeast Asian bats @worobey_huanan_2022.
 The high diversity of bat betacoronaviruses circulating in China is likely the result of a long coevolutionary history @Ruiz-Aravena.
 However, sampling efforts have been very high in China since the emergence of SARS-CoV in 2002, potentially leading to disproportionate sampling and targeting of known betacoronavirus hosts @cohen_coronavirus_2023.
-This sampling bias could therefore inflate the Shapley values in this region.
+This sampling bias could therefore inflate the SV in this region.
 
 _It is important to note the sampling biases emerging from collecting data on host-virus interactions. 
 Sampling efforts in bats appear to be disproportional towards easily captured species, in specific regions and habitats of high species richness @zamora-gutierrez_spatial_2019, and in countries with ongoing research programs focusing on bat-pathogen sampling @juman_paramyxoviruses_2025.
@@ -197,64 +197,64 @@ As mentioned, there are usually no existing data on true absence of host-virus i
 
 #figure(
   image("figures/Meeting 24 avril.jpg"),
-  caption: [*A.* Relationship between Shapley value and the range area value for each species. The gray points represent species that are unknown hosts, while the blue points represent species that are known hosts. *B.* Maximum latitude and mid longitude limits of range for each species and associated Shapley value. Pink color represent lower Shapley values whereas blue represent higher Shapley values. *C.* Relationship between Shapley value and the mean population density value for each species. The gray points represent species that are unknown hosts, while the blue points represent species that are known hosts.]
+  caption: [*A.* Relationship between SV and the range area value for each species. The gray points represent species that are unknown hosts, while the blue points represent species that are known hosts. *B.* Maximum latitude and mid longitude limits of range for each species and associated SV. Pink color represent lower SV, whereas blue represent higher SV. *C.* Relationship between SV and the mean population density value for each species. The gray points represent species that are unknown hosts, while the blue points represent species that are known hosts.]
 ) <trois>
 
 
 Mean human population density is the third most important predictor in our model.
-Figure 2 shows that higher human population densities are linked with higher Shapley values in host species.
+Figure 2 shows that higher human population densities are linked with higher SV in host species.
 Global changes like land-use conversion happening in highly populated regions have been linked to increased interfaces between humans, lifestock and wildlife reservoirs of zoonotic diseases @gibb_zoonotic_2020 @Gibb_2024.
-Parasite diversity in hosts follows a rural-urban gradient in which diversity is greater in hosts species in urban environments, likely caused by weakened immunity due to pollution and altered nutrition and higher hosts densities @Murray_2019.
+Parasite diversity in hosts more broadly follows a rural-urban gradient in which diversity is greater in hosts species in urban environments, likely caused by weakened immunity due to pollution and altered nutrition and higher hosts densities @Murray_2019.
 Certain ecological or life-history traits may influence both host status and the ability to adapt to human disturbances @Johnson_2012 @Johnson_Preston_Hoverman_Richgels_2013, leading to trends of mammals species with higher pathogens richness more likely to occur in human-managed areas @gibb_zoonotic_2020.
 The importance of higher human population densities as a predictor of host status (@trois) also probably recaptures sampling bias arising from proximity to humans @albery_urban-adapted_2022. 
 
 
-== Hosting at family-level 
-We found that there are various ways to serve as a host for betacoronaviruses across scales, and that the family-level scale shows how traits that are specific to a certain family also tends to become its most important predictors.
-As shown in @facet, some traits such as range area, adult body mass and interbirth interval contribute differently depending on the family.
-However, some other traits contribute in a similar way across families, _e.g._ habitat breadth which can be unexpected considering that habitat breadth is usually linked to geographic range size.
-One might think that the contribution of the habitat would be of the same magnitude as that of the range size.
+== Hosting at the family scale
+We found that there are various ways to serve as a host for betacoronaviruses across phylogenetic scales, and that the family-level scale shows how traits that are specific to a certain family also tends to become its most important predictors.
+As shown in @facet, some traits such as range area, adult body mass, and interbirth interval contribute differently depending on the family.
+However, some other traits contribute in a similar way across families, _e.g._ habitat breadth, which can be unexpected considering that habitat breadth is usually linked to geographic range size.
+One might think that the contribution of habitat would be of the same magnitude as that of the range size.
 However, Shapley values tend to boost the most informative features, here range area, whereas habitat breadth likely does not add more information.
-The family-specific traits that stand out the most are range area for Molossidae, adult body mass and forearm length for Pteropodidae, family for Mormoopidae, and interbirth interval for Phyllostomidae.
-Families with a small number of host species, such as Molossidae and Phyllostomidae, can stand out more easily from the global average.
-In contrast, Vespertilionidae, a family with a large number of host species, do not have traits whose contribution is particularly distinct or high. 
+The family-specific traits that stand out the most are range area for the Molossidae, adult body mass and forearm length for the Pteropodidae, family for the Mormoopidae, and interbirth interval for the Phyllostomidae.
+Families with a small number of host species, such as the Molossidae and the Phyllostomidae, can stand out more easily from the global average.
+In contrast, the Vespertilionidae, a family with a large number of host species, do not have traits whose contribution are particularly distinct or high. 
 
 #figure(
   image("figures/aug_shap_hosts.png"),
-  caption: [*Mean Shapley values of the selected features to predictions of host species grouped by family*. The selected features are those whose contributions account for 75% of the total contributions. We selected the families that contained three or more host species: Vespertilionidae, Rhinolophidae, Pteropodidae, Phyllostomidae, Mormoopidae, Molossidae, and Hipposideridae. The total contribution (dark blue) represents the average for all hosts species (_n_ = 92) belonging to any of the 20 families included in the initial dataset. ]
+  caption: [*Mean SV of the selected features to predictions of host species grouped by family*. The selected features are those whose contributions account for 75% of the total contributions. We selected the families that contained three or more host species: Vespertilionidae, Rhinolophidae, Pteropodidae, Phyllostomidae, Mormoopidae, Molossidae, and Hipposideridae. The total contribution (dark blue) represents the average for all hosts species (_n_ = 92) belonging to any of the 20 families included in the initial dataset. ]
 ) <facet>
 
-Range area plays an important role as predictor for hosts species within the Molossidae family with a mean of absolute Shapley values of 0.28 compared to the global mean of 0.14.
-There appears to be a trend of larger range areas among molossids that are hosts of betacoronaviruses than among other families and unknown hosts (*supp mat*), but the small number of host species limits our analyses and could simply introduce a bias.
-Within the four molossids hosts, only two of them present significantly higher Shapley values: _Molossus molossus_ and _Mops condylurus_ respectively have Shapley values of 0.39 and 0.38.
-The two other host species (_Mops plicatus_ and _Tadaria brasiliensi_) have Shapley values that are close to the overall average.
-Although there is indeed a relationship between the range size and the Shapley values (@trois), it is hard to conclude if this relationship is any more distinct or stronger in the Molossidae than in other families.
+Range area plays an important role as predictor for hosts species within the Molossidae family with a mean of absolute SV of 0.28 compared to the global mean of 0.14.
+There appears to be a trend of larger range areas among molossid that are hosts of betacoronaviruses than among other families and unknown hosts (*supp mat*), but the small number of host species limits our analyses and could simply introduce a bias.
+Within the four molossids hosts, only two species present significantly higher SV: _Molossus molossus_ and _Mops condylurus_ respectively have SV of 0.39 and 0.38.
+The two other host species (_Mops plicatus_ and _Tadaria brasiliensis_) have SV that are close to the overall average.
+Although there is indeed a relationship between range size and the SV (@trois), it is hard to conclude if this relationship is any more distinct or stronger in the Molossidae than in other families.
 
-Another interesting case is the contribution of body mass to predictions of host species within the Pteropodidae family, where the average Shapley value is 0.09, compared to the global average of 0.03. 
-@bodymass shows a clear trend of higher Shapley values linked to higher body mass values for host species where pteropodids stand out particularly with their important body mass values.
-Overall, we observe that Shapley values increase when the logarithm of body mass is greater than 4; below this value, Shapley values tend to plateau toward zero. Forearm length also contributes distinctly for Pteropodidae, whereas body length contributes little (@facet).
-Members of the Pteropodidae family, also known as Old World fruit bats, are known to be the largest species of bats, some of which can weigh up to 1500g and have a wingspan of up to 1.8 meters @Nowak_1994, which is likely the result of character displacement in islands @Almeida.
-As opposed to large birds and non-flying mammals, bats' immune cell proportions do not vary systematically with body mass, therefore not supporting the hypothesis that the evolution of flight enabled a relationship between body mass and immunity @CorneliusRuhs_2021.
-The morphological traits of the Pteropodidae are highly specific and distinct from other families and they appear to be key factors in explaining why these species are hosting betacoronaviruses.   
+Another interesting case is the contribution of body mass to predictions of host species within the Pteropodidae family, where the average SV is 0.09, compared to the global average of 0.03. 
+@bodymass shows a clear trend of higher SV linked to higher body mass values for host species, where pteropodids stand out particularly with their important body mass values.
+Overall, we observe that SV increase when the logarithm of body mass is greater than four; below this value, SV tend to plateau toward zero. Forearm length also contributes distinctly for the Pteropodidae, whereas body length contributes little (@facet).
+Members of the Pteropodidae family are known to be the largest species of bats, some of which can weigh up to 1500 g and have a wingspan of up to 1.8 meters @Nowak_1994, which is likely the result of character displacement in islands @Almeida.
+As opposed to large birds and non-flying mammals, bat immune cell proportions do not vary systematically with body mass, therefore not supporting the hypothesis that the evolution of flight enabled a relationship between body mass and immunity @CorneliusRuhs_2021.
+The morphological traits of the Pteropodidae are highly specific and distinct from other families, and they appear to be key factors in explaining why these species are hosting betacoronaviruses.   
 
 #figure(
   image("figures/aug_bodymass_hosts_fams.png", width: 90%),
-  caption: [*Relationship between Shapley values and body mass values for species hosts of betacoronaviruses.* The different colors represent the families, selected based on the number of species they contain: Vespertilionidae, Rhinolophidae, Pteropodidae, Phyllostomidae, Molossidae, Mormoopidae and Hipposideridae. Each dot represents a species known to be host of betacoronaviruses.]
+  caption: [*Relationship between SV and body mass values for species hosts of betacoronaviruses.* The different colors represent the families, selected based on the number of species they contain: Vespertilionidae, Rhinolophidae, Pteropodidae, Phyllostomidae, Molossidae, Mormoopidae and Hipposideridae. Each dot represents a species known to be host of betacoronaviruses.]
 )<bodymass>
 
 
 For species known to be hosts within the Mormoopidae family, just being part of this family is highly predictive of the host status (family average SV of 0.13) compared to host species within other families.
-Mormoopidae is a small family that contains only two genus (_Mormoops_ and _Pteronotus_) for which our dataset covers a total of eleven species.
-Mormoopids range from the southwestern United States to southern Brazil, in the Greater Antilles, Lesser Antilles, Dutch West Indes, and Trinidad and Tobago and are classified as exclusively insectivorous @DaVALOS_2006 @Simmons_Conway_2001.
-This family has the highest ratio of host species to unknown host species (4 known hosts/7 unknown hosts), which could lead the model to conclude that phylogeny explains the host status of species belonging to this family.
-Furthermore, the Shapley value for the "family" feature differs significantly from those of other families, but it is not particularly distinct within mormoopids since range area contributes the most (SV = 0.15) and maximum latitude is equal (SV = 0.13).
+The Mormoopidae is a small family that contains only two genera (_Mormoops_ and _Pteronotus_) for which our dataset covers a total of eleven species.
+Mormoopids range from the southwestern United States to southern Brazil, in the Greater Antilles, Lesser Antilles, Dutch West Indes, and Trinidad and Tobago, and are exclusively insectivorous @DaVALOS_2006 @Simmons_Conway_2001.
+This family has the highest ratio of host species to unknown host species (four known hosts to seven unknown hosts), which could lead the model to conclude that phylogeny explains the host status of species belonging to this family.
+Furthermore, the SV for the "family" feature differs significantly from those of other families, but it is not particularly distinct within mormoopids since range area contributes the most (SV = 0.15) and maximum latitude is equal (SV = 0.13).
 Thus, this result is probably more indicating about the model's behavior and how information is learned through the training process rather than about the phylogeny and immunology of the Mormoopidae.
-The Shapley value for the family feature is also slightly higher in species belonging to the Rhinolophidae than in species from other families, which underscores existing taxonomic biases regarding the close evolutionary relationship between this family and betacoronaviruses @latinne_origin_2024.  
+The SV for the family feature is also slightly higher in species belonging to the Rhinolophidae than in species from other families, which underscores existing taxonomic biases regarding the close evolutionary relationship between this family and betacoronaviruses @latinne_origin_2024.  
  
 
 Interbirth interval is the most important predictor for host species within the Phyllostomidae with an average Shapley value of 0.10 which is more than double the values for the other families and the overall average.
-In @birth, we show that shorter interbirth interval, mainly observed for Phyllostomidae and Pteropodidae, increases the Shapley values.
-Phyllostomidae and Pteropodidae have the shortest average interbirth interval @soria_combine_2021, and although other phyllostomid and pteropodid species have short interbirth interval, Shapley values are distinctly high only in hosts, suggesting that this mechanism is status-specific. 
+In @birth, we show that shorter interbirth interval, mainly observed for the Phyllostomidae and Pteropodidae, increases the SV.
+The Phyllostomidae and Pteropodidae have the shortest average interbirth interval @soria_combine_2021, and although other phyllostomid and pteropodid species have short interbirth intervals, SV are distinctly high only in hosts, suggesting that this mechanism is status-specific. 
 #cite(<han_undiscovered_2016>, form: "prose") identified lifetime reproductive output as a key predictor of bat reservoir of filoviruses. Shorter birth intervals had also been observed in primates that are hosts of Zika virus compared to non-hosts @han_confronting_2019. 
 On the one hand, investing in reproduction may require compromising immunity, thereby increasing the chances of becoming hosts @Lochmiller_Deerenberg_2000. 
 On the other hand, shorter interbirth interval increases the proportion of time spent in maternity roosts each year and, consequently, the risk of transmission under both density- and frequency-dependent transmission scenarios, since the likelihood of viral transmission through a more rapid replacement of vulnerable pups is increased with biannual births @Amman_2012 @Hayman_2015.
@@ -263,26 +263,26 @@ Thus, shorter birth intervals appear to be an important determinant of host stat
 
 #figure(
   image("figures/aug_birth_hosts.png", width: 90%),
-  caption: [*Relationship between Shapley values and interbirth interval values for species hosts of betacoronaviruses* The different colors represent the families, selected based on the number of species they contain: Vespertilionidae, Rhinolophidae, Pteropodidae, Phyllostomidae, Molossidae, Mormoopidae and Hipposideridae. Each dot represents a species known to be host of betacoronaviruses.]
+  caption: [*Relationship between SV and interbirth interval values for species hosts of betacoronaviruses* The different colors represent the families, selected based on the number of species they contain: Vespertilionidae, Rhinolophidae, Pteropodidae, Phyllostomidae, Molossidae, Mormoopidae and Hipposideridae. Each dot represents a species known to be host of betacoronaviruses.]
 )<birth>
 
-== Hosting at species-level
-One of the most interesting properties of Shapley values is their ability to explain an individual prediction.
-Here, we seek to understand what makes species host betacoronaviruses and how this varies from one to another.
-@ens shows variations in traits contribution among species, both inter-family and intra-family.
+== Hosting at the species scale
+One of the most interesting properties of SV is their ability to explain an individual prediction.
+Here, we seek to understand what makes bat species host betacoronaviruses and how this varies from one to another.
+@ens shows variations in traits contribution among species, at both the inter-family and intra-family scales.
 There is considerable variation in Shapley values among species, both within and across families.
-As expected, species from different families have different Shapley values and exhibit patterns similar to those seen in the family-level analysis: *a)* interbirth interval is important for the species representing the family of Phyllostomidae, *b)* the family feature contributes highly for the mormoopid species and the rhinolophi species and *c)* range size, maximum latitude and human population density are overall highly predictive of bat hosts.
+As expected, species from different families have different SV and exhibit patterns similar to those seen in the family-level analysis: *a)* interbirth interval is important for the species within the  family Phyllostomidae, *b)* the family feature contributes highly for the mormoopid species and the rhinolophid species and *c)* range size, maximum latitude and human population density are overall highly predictive of bat hosts.
 On the other hand, body mass does not play a significant role in predicting the status of the pteropodid species. 
 
 #figure(
   image("figures/interspecific_variation.png"),
-  caption: [*Comparison of interspecific variation in Shapley values, both inter-family and intra-family.* Inter-family (the species with the largest range area for each of the targeted families): _Myotis laniger_ (Vespertilionidae), _Rhinolophus malayanus_ (Rhinolophus), _Epomophorus pusillus_ (Pteropodidae), _Glossophaga leachii_ (Phyllostomidae), _Mops plicatus_ (Molossidae), _Pteronotus parnellii_ (Mormoopidae), _Hipposideros ruber_ (Hipposideridae). Intra-family (the seven species with the largest range area belonging to the family of Vespertilionidae) : _Myotis laniger_, _Pipistrellus pipistrellus_, _Cnephaeus serotinus_, _Vespertilio sinensis_, _Kerivoula furva_, _Submyotodon latirostris_, _Myotis davidii_.]
+  caption: [*Comparison of interspecific variation in SV, both inter-family and intra-family.* Inter-family (the species with the largest range area for each of the targeted families): _Myotis laniger_ (Vespertilionidae), _Rhinolophus malayanus_ (Rhinolophidae), _Epomophorus pusillus_ (Pteropodidae), _Glossophaga leachii_ (Phyllostomidae), _Mops plicatus_ (Molossidae), _Pteronotus parnellii_ (Mormoopidae), _Hipposideros ruber_ (Hipposideridae). Intra-family (the seven species with the largest range area belonging to the family of Vespertilionidae) : _Myotis laniger_, _Pipistrellus pipistrellus_, _Cnephaeus serotinus_, _Vespertilio sinensis_, _Kerivoula furva_, _Submyotodon latirostris_, _Myotis davidii_.]
 ) <ens>
 
-The marked variation among species within the same family (here Vespertilionidae) highlights how interspecific variation manifests to affect ability to host, and possibly to transmit viruses.
-This result shows that even species within the same family—that share a stronger phylogenetic relationship and similar traits—have different Shapley values, meaning that different features contributed to making the individual predictions.
+The marked variation among species within the same family (here Vespertilionidae) highlights how interspecific variation manifests to affect ability to host, and possibly to transmit, viruses.
+This result shows that even species within the same family—that share a stronger phylogenetic relationship and similar traits—have different SV, meaning that different features contributed to making the individual predictions.
 During the training process, the model learned that there is interspecific variation in traits and that different traits can lead to a positive prediction.
-Our results replicates how the interspecific trait diversity among chiropterans leads to heterogeneity in immunology across this taxa, and shows the various ways there is to be a host of betacoronaviruses as highlighted by #cite(<becker_2025>, form: "prose").
+Our results emphasize how the interspecific trait diversity among chiropterans leads to heterogeneity in immunology across this taxa and shows the various ways there are to be a host of betacoronaviruses @becker_2025.
 Different species mean different traits mean different ways to host.
 As conceptualized by #cite(<Graham_Storch_Machac_2018>, form: "prose"), the specific properties of a biological system and the attributes to be studied should guide the choice of phylogenetic scale and measure to be used.
 Our results demonstrate how important it is to study the ecology of bat hosts at the finest scale possible in order to gain a better understanding of the interactions between bats and viruses and to better understand what makes bat species such important hosts and even reservoirs.

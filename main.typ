@@ -206,7 +206,7 @@ As shown in @facet, some traits such as range area, adult body mass, and interbi
 However, some other traits contribute in a similar way across families, _e.g._ habitat breadth, which can be unexpected considering that habitat breadth is usually linked to geographic range size.
 One might think that the contribution of habitat breadth would be similar as that of the range size, since a larger geographic range might result in occupying more different habitats @Lindenfors_Nunn_Jones_Cunningham_Sechrest_Gittleman_2007.
 However, SV tend to boost the most informative features, here range area, whereas habitat breadth likely does not add more information.
-The family-specific traits that stand out the most are range area for the Molossidae, adult body mass and forearm length for the Pteropodidae, family for the Mormoopidae, and interbirth interval for the Phyllostomidae.
+The family-specific traits that stand out the most are range area for the Molossidae, adult body mass and forearm length for the Pteropodidae, and interbirth interval for the Phyllostomidae.
 Families with a small number of host species, such as the Molossidae and the Phyllostomidae, can stand out more easily from the global average.
 In contrast, the Vespertilionidae, a family with a large number of host species, do not have traits whose contribution are particularly distinct or high. 
 
@@ -261,7 +261,7 @@ During the training process, the model learned that there is interspecific varia
 Our results emphasize how the interspecific trait diversity among chiropterans leads to heterogeneity in immunology across this taxa and shows the various ways there are to be a host of betacoronaviruses @becker_2025.
 Different species mean different traits mean different ways to host.
 As conceptualized by #cite(<Graham_Storch_Machac_2018>, form: "prose"), the specific properties of a biological system and the attributes to be studied should guide the choice of phylogenetic scale and measure to be used.
-Our results demonstrate how important it is to study the ecology of bat hosts at the finest scale possible in order to gain a better understanding of the interactions between bats and viruses and to better understand what makes bat species such important hosts and even reservoirs.
+Our results demonstrate how important it is to study the ecology of bat hosts at various phylogenetic scales in order to gain a better understanding of the interactions between bats and viruses and as to what makes bat species such important hosts and even reservoirs.
 
 #figure(
   image("figures/interspecific_variation.png", width: 80%),

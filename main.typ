@@ -55,9 +55,11 @@ Another key use of explainable ML is to explore and discover unexpected relation
 Since a ML model learns patterns inherent in the data, this can be used to explore previously unknown or unexpected relationships and underlying mechanisms that would challenge and possibly improve domain knowledge. 
 To do this, one must be able to extract the information learned by the model.
 
-This study aims to provide easily interpretable justifications for individual predictions of the zoonotic status of bats as hosts of betacoronaviruses. 
-More precisely, we want to provide explanations as to _why_ a specific prediction was reached by analyzing how traits, used as predictors, contribute quantitatively to a prediction. 
+This study aims to provide easily interpretable justifications of the zoonotic status of bats as hosts of betacoronaviruses at three distinct phylogenetic scales: order, family, and species.
+More precisely, we want to provide explanations as to _why_ predictions are reached by analyzing how traits used as predictors contribute quantitatively. 
 We hypothesize that geographical features, _e.g_ range area and range limits, and traits linked to reproductive output will contribute to predicting bat hosts of betacoronaviruses, as these traits have been previously linked to predicting bat hosts of filoviruses @han_undiscovered_2016. 
+The complexity of ecological systems—in this case, the interactions between hosts and viruses—requires a multiscale approach, as different phylogenetic levels are thought to be governed by different biological mechanisms @Graham_Storch_Machac_2018. 
+In this regard, we propose to highlight how key predictors of the betacoronavirus-positive status can differ from one bat family to another (interfamily), as well as within families themselves (intrafamily).
 This study also aims to discover insights by extracting learned information from a translucent predictive model that may yield unexpected underlying mechanistic processes governing host-virus interactions. 
 In other words, this is a diagnostic approach in which we use an already trained model to examine its behavior rather than the predictions it makes. 
 Our goal is to understand what the model has learned about the ecology of host-virus interactions during its training process. 
@@ -101,11 +103,8 @@ All the species that were not in the interaction dataset -- that had no publishe
 Our merged interaction-trait dataset covered 1,335 bat species, 92 of which are known hosts, across 20 families (*cite sup mat*).   
 
 == Data cleaning and imputation
-_revoir ce para_ 
 
-In order to avoid data leakage by overloading the model with duplicate information, we excluded redundant features from COMBINE that provide very similar information: we removed diet data from EltonTraits to prioritize diet data from PHYLACINE @phylacine. 
-Both include data on the proportion of diet coming from different sources (invertebrates, plants, vertebrates, etc.). 
-The PHYLACINE data were included because of higher coverage, thus needing less additional data imputation. 
+In order to avoid data leakage by overloading the model with duplicate information, we excluded redundant features from COMBINE that provide very similar information: we removed diet data from EltonTraits to prioritize diet data from PHYLACINE @phylacine as the latter had higher coverage, thus needing less additional data imputation. 
 We applied two exclusion criteria for the trait data: baseline coverage and variation threshold. 
 For the baseline coverage, we excluded any traits that greater than 50% of missing values @becker_optimising_2022, which mostly impacted life history variables, since these data are particularly sparse for wildlife species. 
 For the variation threshold, we excluded traits that had more than 97% homogeneity @becker_optimising_2022. 
@@ -182,12 +181,10 @@ China is home to more than 100 species of bats, some of which are endemic, with 
 Both SARS-CoV and SARS-CoV-2 likely derived from related bat-borne sarbecoviruses circulating in Southeast Asian bats @worobey_huanan_2022.
 The high diversity of bat betacoronaviruses circulating in China is likely the result of a long coevolutionary history @Ruiz-Aravena.
 However, sampling efforts have been very high in China since the emergence of SARS-CoV in 2002, potentially leading to disproportionate sampling and targeting of known betacoronavirus hosts @cohen_coronavirus_2023.
-This sampling bias could therefore inflate the SV in this region.
+This sampling bias could therefore inflate the SV in this region. 
+It is also important to note the sampling biases emerging from collecting data on host-virus interactions. 
+Sampling efforts in bats appear to be disproportional towards easily captured species, in specific regions and habitats of high species richness @zamora-gutierrez_spatial_2019, and in countries with ongoing research programs focusing on bat-pathogen sampling @juman_paramyxoviruses_2025, which all could lead to inflating SV for geographical features.
 
-_It is important to note the sampling biases emerging from collecting data on host-virus interactions. 
-Sampling efforts in bats appear to be disproportional towards easily captured species, in specific regions and habitats of high species richness @zamora-gutierrez_spatial_2019, and in countries with ongoing research programs focusing on bat-pathogen sampling @juman_paramyxoviruses_2025.
-For example, countries in the Americas and Oceania are less likely to have data on bat coronaviruses than those in Asia and Europe, as most bat sampling from 1996 to 2019 took place in China with gaps in South Asia, the Americas, and Africa @cohen_coronavirus_2023. 
-As mentioned, there are usually no existing data on true absence of host-virus interactions, no records of known non-hosts species, which means the ML model is trained on pseudo-absences that, based on those sampling biases, could actually be unsampled known hosts of betacoronaviruses._ (valider où mettre ce para)
 
 #figure(
   image("figures/Meeting 24 avril.jpg", width: 80%),
@@ -200,7 +197,7 @@ Figure 2 shows that higher human population densities are linked with higher SV 
 Global changes like land-use conversion happening in highly populated regions have been linked to increased interfaces between humans, lifestock and wildlife reservoirs of zoonotic diseases @gibb_zoonotic_2020 @Gibb_2024.
 Parasite diversity in hosts more broadly follows a rural-urban gradient in which diversity is greater in hosts species in urban environments, likely caused by weakened immunity due to pollution and altered nutrition and higher hosts densities @Murray_2019.
 Certain ecological or life-history traits may influence both host status and the ability to adapt to human disturbances @Johnson_2012 @Johnson_Preston_Hoverman_Richgels_2013, leading to trends of mammals species with higher pathogens richness more likely to occur in human-managed areas @gibb_zoonotic_2020.
-The importance of higher human population densities as a predictor of host status (@trois) also probably recaptures sampling bias arising from proximity to humans @albery_urban-adapted_2022. 
+The importance of higher human population densities as a predictor of host status (@trois) also probably recaptures sampling bias arising from proximity to humans @albery_urban-adapted_2022.  
 
 
 == Hosting at the family scale
@@ -267,11 +264,6 @@ Here, we seek to understand what makes bat species host betacoronaviruses and ho
 As expected, species from different families have different SV and exhibit patterns similar to those seen in the family-level analysis: *a)* interbirth interval is important for the species within the  family Phyllostomidae, *b)* the family feature contributes highly for the mormoopid species and the rhinolophid species and *c)* range size, maximum latitude and human population density are overall highly predictive of bat hosts.
 On the other hand, body mass does not play a significant role in predicting the status of the pteropodid species. 
 
-#figure(
-  image("figures/interspecific_variation.png", width: 80%),
-  caption: [*Comparison of interspecific variation in SV, both inter-family and intra-family.* Inter-family (the species with the largest range area for each of the targeted families): _Myotis laniger_ (Vespertilionidae), _Rhinolophus malayanus_ (Rhinolophidae), _Epomophorus pusillus_ (Pteropodidae), _Glossophaga leachii_ (Phyllostomidae), _Mops plicatus_ (Molossidae), _Pteronotus parnellii_ (Mormoopidae), _Hipposideros ruber_ (Hipposideridae). Intra-family (the seven species with the largest range area belonging to the family of Vespertilionidae) : _Myotis laniger_, _Pipistrellus pipistrellus_, _Cnephaeus serotinus_, _Vespertilio sinensis_, _Kerivoula furva_, _Submyotodon latirostris_, _Myotis davidii_.]
-) <ens>
-
 The marked variation among species within the same family (here Vespertilionidae) highlights how interspecific variation manifests to affect ability to host, and possibly to transmit, viruses.
 This result shows that even species within the same family—that share a stronger phylogenetic relationship and similar traits—have different SV, meaning that different features contributed to making the individual predictions.
 During the training process, the model learned that there is interspecific variation in traits and that different traits can lead to a positive prediction.
@@ -279,6 +271,12 @@ Our results emphasize how the interspecific trait diversity among chiropterans l
 Different species mean different traits mean different ways to host.
 As conceptualized by #cite(<Graham_Storch_Machac_2018>, form: "prose"), the specific properties of a biological system and the attributes to be studied should guide the choice of phylogenetic scale and measure to be used.
 Our results demonstrate how important it is to study the ecology of bat hosts at the finest scale possible in order to gain a better understanding of the interactions between bats and viruses and to better understand what makes bat species such important hosts and even reservoirs.
+
+#figure(
+  image("figures/interspecific_variation.png", width: 80%),
+  caption: [*Comparison of interspecific variation in SV, both inter-family and intra-family.* Inter-family (the species with the largest range area for each of the targeted families): _Myotis laniger_ (Vespertilionidae), _Rhinolophus malayanus_ (Rhinolophidae), _Epomophorus pusillus_ (Pteropodidae), _Glossophaga leachii_ (Phyllostomidae), _Mops plicatus_ (Molossidae), _Pteronotus parnellii_ (Mormoopidae), _Hipposideros ruber_ (Hipposideridae). Intra-family (the seven species with the largest range area belonging to the family of Vespertilionidae) : _Myotis laniger_, _Pipistrellus pipistrellus_, _Cnephaeus serotinus_, _Vespertilio sinensis_, _Kerivoula furva_, _Submyotodon latirostris_, _Myotis davidii_.]
+) <ens>
+
 
 = Conclusion 
 We demonstrated how SV, a post-hoc method of explainable machine learning, can be used to interpret individual predictions and also how they can be used to have a better understanding of global, family-level and species-level importance of input features.

@@ -128,15 +128,10 @@ The optimal threshold (τ ≈ 0.088) was used to make class predictions on the w
 
 
 == Model validation
-To assess the performance of the model, we used leave-one-out cross-validation (LOOCV). 
-LOOCV is a process during which data is split into training and testing sets multiple times so that the model is trained with training data and is evaluated with testing data, ensuring it is not overfit on the training set. 
-An overfit model is a model that performs especially well on the training set but poorly on the testing set, because it learned specific details of the training data rather than learning the general patterns. 
-A model that performs as well on the testing set as on the training set learned general patterns and behaviors inherent in data and normally provides more trustworthy predictions. 
-In cross-validation, folds are created each one containing a different variation of the training set and the testing set. 
+To assess the performance of the model, we used leave-one-out cross-validation (LOOCV), a process during which data is split into training and testing sets multiple times, called folds, so that the model is trained with training data and is evaluated with testing data. 
 For LOOCV, each fold contains a training set of _n_-1 instances, which leaves one instance for the testing set. 
 The folding process is repeated until all of the instances have been used separately in the testing set. 
-In this study, we used 1,335 folds each containing a training set of 1,334 instances and a testing set of only one instance. 
-The model was then trained on every fold, which means that every single instance was used at some point in the process to train the model, making it an exhaustive method for doing cross-validation. 
+The model is trained on every fold, which means that every single instance is used at some point in the process to train the model, making it an exhaustive method for doing cross-validation.
 
 The Matthews correlation coefficient (MCC) was used to measure the performance of the model as it has been identified as the most appropriate measure @chicco_matthews_2023, because it is optimized only when the model achieves a good score in each of the four quadrants of the confusion matrix—that is, when the model performs well at everything. 
 The coefficient is a value between -1 (the predictions are opposite to the actual values) and +1 (the predictions are perfectly accurate), where zero represents random predictions. 

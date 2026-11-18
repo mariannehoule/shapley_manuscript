@@ -229,18 +229,9 @@ As opposed to large birds and non-flying mammals, bat immune cell proportions do
 The morphological traits of the Pteropodidae are highly specific and distinct from other families, and they appear to be key factors in explaining why these species are hosting betacoronaviruses.   
 
 #figure(
-  image("figures/aug_bodymass_hosts_fams.png", width: 70%),
+  image("figures/aug_bodymass_hosts_fams.png", width: 60%),
   caption: [*Relationship between SV and body mass values for species hosts of betacoronaviruses.* The different colors represent the families, selected based on the number of species they contain: Vespertilionidae, Rhinolophidae, Pteropodidae, Phyllostomidae, Molossidae, Mormoopidae and Hipposideridae. Each dot represents a species known to be host of betacoronaviruses.]
 )<bodymass>
-
-
-For species known to be hosts within the Mormoopidae family, just being part of this family is highly predictive of the host status (family average SV of 0.13) compared to host species within other families.
-The Mormoopidae is a small family that contains only two genera (_Mormoops_ and _Pteronotus_) for which our dataset covers a total of eleven species.
-Mormoopids range from the southwestern United States to southern Brazil, in the Greater Antilles, Lesser Antilles, Dutch West Indes, and Trinidad and Tobago, and are exclusively insectivorous @DaVALOS_2006 @Simmons_Conway_2001.
-This family has the highest ratio of host species to unknown host species (four known hosts to seven unknown hosts), which could lead the model to conclude that phylogeny explains the host status of species belonging to this family.
-Furthermore, the SV for the "family" feature differs significantly from those of other families, but it is not particularly distinct within mormoopids since range area contributes the most (SV = 0.15) and maximum latitude is equal (SV = 0.13).
-Thus, this result is probably more indicating about the model's behavior and how information is learned through the training process rather than about the phylogeny and immunology of the Mormoopidae.
-The SV for the family feature is also slightly higher in species belonging to the Rhinolophidae than in species from other families, which underscores existing taxonomic biases regarding the close evolutionary relationship between this family and betacoronaviruses @latinne_origin_2024.  
  
 
 Interbirth interval is the most important predictor for host species within the Phyllostomidae with an average Shapley value of 0.10 which is more than double the values for the other families and the overall average.
@@ -253,7 +244,7 @@ Thus, shorter birth intervals appear to be an important determinant of host stat
 
 
 #figure(
-  image("figures/aug_birth_hosts.png", width: 70%),
+  image("figures/aug_birth_hosts.png", width: 60%),
   caption: [*Relationship between SV and interbirth interval values for species hosts of betacoronaviruses* The different colors represent the families, selected based on the number of species they contain: Vespertilionidae, Rhinolophidae, Pteropodidae, Phyllostomidae, Molossidae, Mormoopidae and Hipposideridae. Each dot represents a species known to be host of betacoronaviruses.]
 )<birth>
 

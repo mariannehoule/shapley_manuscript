@@ -215,13 +215,13 @@ In contrast, the Vespertilionidae, a family with a large number of host species,
   caption: [*Mean SV of the selected features to predictions of host species grouped by family*. The selected features are those whose contributions account for 75% of the total contributions. We selected the families that contained three or more host species: Vespertilionidae, Rhinolophidae, Pteropodidae, Phyllostomidae, Mormoopidae, Molossidae, and Hipposideridae. The total contribution (dark blue) represents the average for all hosts species (_n_ = 92) belonging to any of the 20 families included in the initial dataset. ]
 ) <facet>
 
-Range area plays an important role as predictor for hosts species within the Molossidae family with a mean of absolute SV of 0.28 compared to the global mean of 0.14.
+Range area plays an important role as predictor for hosts species within the Molossidae family with a mean of absolute SV of 0.285 (SE 0.059) compared to the global mean of 0.139 (SE 0.010).
 There appears to be a trend of larger range areas among molossid that are hosts of betacoronaviruses than among other families and unknown hosts (@sup2), but the small number of host species limits our analyses and could simply introduce a bias.
 Within the four molossids hosts, only two species present significantly higher SV: _Molossus molossus_ and _Mops condylurus_ respectively have SV of 0.39 and 0.38.
 The two other host species (_Mops plicatus_ and _Tadaria brasiliensis_) have SV that are close to the overall average.
 Although there is indeed a relationship between range size and the SV (@trois), it is hard to conclude if this relationship is any more distinct or stronger in the Molossidae than in other families.
 
-Another interesting case is the contribution of body mass to predictions of host species within the Pteropodidae family, where the average SV is 0.09, compared to the global average of 0.03. 
+Another interesting case is the contribution of body mass to predictions of host species within the Pteropodidae family, where the average SV is 0.099 (SE 0.014), compared to the global average of 0.031 (SE 0.005). 
 @bodymass shows a clear trend of higher SV linked to higher body mass values for host species, where pteropodids stand out particularly with their important body mass values.
 Overall, we observe that SV increase when the logarithm of body mass is greater than four; below this value, SV tend to plateau toward zero. Forearm length also contributes distinctly for the Pteropodidae, whereas body length contributes little (@facet).
 Members of the Pteropodidae family are known to be the largest species of bats, some of which can weigh up to 1500 g and have a wingspan of up to 1.8 meters @Nowak_1994, which is likely the result of character displacement in islands @Almeida.
@@ -234,7 +234,7 @@ The morphological traits of the Pteropodidae are highly specific and distinct fr
 )<bodymass>
  
 
-Interbirth interval is the most important predictor for host species within the Phyllostomidae with an average Shapley value of 0.10 which is more than double the values for the other families and the overall average.
+Interbirth interval is the most important predictor for host species within the Phyllostomidae with an average Shapley value of 0.103 (SE 0.012) which is more than double the values for the other families and the overall average of 0.023 (SE 0.003).
 In @birth, we show that shorter interbirth interval, mainly observed for the Phyllostomidae and Pteropodidae, increases the SV.
 The Phyllostomidae and Pteropodidae have the shortest average interbirth interval @soria_combine_2021, and although other phyllostomid and pteropodid species have short interbirth intervals, SV are distinctly high only in hosts, suggesting that this mechanism is status-specific. 
 #cite(<han_undiscovered_2016>, form: "prose") identified lifetime reproductive output as a key predictor of bat reservoir of filoviruses. Shorter birth intervals had also been observed in primates that are hosts of Zika virus compared to non-hosts @han_confronting_2019. 

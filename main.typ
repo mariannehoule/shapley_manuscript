@@ -294,6 +294,8 @@ This method can easily be applied to models that have already been trained and c
 
 = Acknowledgments 
 
+We acknowledge that this study was conducted on land within the traditional unceded territory of the Saint Lawrence Iroquoian, Anishinabewaki, Mohawk, Huron-Wendat, and Omàmiwininiwak nations. MH was founded through (...)
+
 #showbibliography("reference_april.bib")
 
 #pagebreak()

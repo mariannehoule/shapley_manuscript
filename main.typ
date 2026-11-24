@@ -100,7 +100,7 @@ When initially merging the interaction dataset with the trait dataset, nine reco
 We then manually reconciled these species names following the taxonomies of the IUCN Red List @iucn to update the trait dataset and make sure all hosts species in the interaction data had a correct match in the trait data @gibb_data_2021. 
 We also removed extinct species (seven records in the trait dataset) as well as _sp._ and sub species (10 records in the interaction dataset) that were currently not recognised by the taxonomies of the IUCN Red List. 
 All the species that were not in the interaction dataset -- that had no published record of interacting with betacoronaviruses -- were assigned binary value 0 and identified as unknown hosts, meaning they will be considered as non-interacting with betacoronaviruses within the machine learning process. 
-Our merged interaction-trait dataset covered 1,335 bat species, 92 of which are known hosts, across 20 families (*cite sup mat*).   
+Our merged interaction-trait dataset covered 1,335 bat species, 92 of which are known hosts, across 20 families (@sup1).   
 
 == Data cleaning and imputation
 
@@ -147,7 +147,7 @@ SV were computed using ShapML.jl v0.3.2 for Julia with a Monte-Carlo sample size
 Once computed, we first used SV to rank the most important traits as predictors of the host status of bats for betacoronaviruses by calculating the mean of the absolute SV per trait for known and unknown hosts. 
 We used scatterplots to visualize individual data-points for the most predictive features and assess trends. 
 Then, we ranked the most important traits per bat family to assess taxonomic-specific trends. 
-To do so, we focused our analyses on families that contained three or more betacoronavirus-positive species in the VIRION database as of August 25th 2025 (Vespertilionidae, Rhinolophidae, Pteropodidae, Phyllostomidae, Molossidae, Mormoopidae and Hipposideridae; *Supplementary material*) and on features whose contributions add up to 75% of total contribution for known hosts. 
+To do so, we focused our analyses on families that contained three or more betacoronavirus-positive species in the VIRION database as of August 25th 2025 (Vespertilionidae, Rhinolophidae, Pteropodidae, Phyllostomidae, Molossidae, Mormoopidae and Hipposideridae; @sup1) and on features whose contributions add up to 75% of total contribution for known hosts. 
 Finally, we used species-level SV to compare inter- and intra-family trends. 
 For the inter-family comparison, we picked the species with the largest range area belonging to each of the selected families. 
 For the intra-family comparison, we selected the seven species with the largest range belonging to the family Vespertilionidae, since this is the family with the greatest number of species @soria_combine_2021.
@@ -216,7 +216,7 @@ In contrast, the Vespertilionidae, a family with a large number of host species,
 ) <facet>
 
 Range area plays an important role as predictor for hosts species within the Molossidae family with a mean of absolute SV of 0.28 compared to the global mean of 0.14.
-There appears to be a trend of larger range areas among molossid that are hosts of betacoronaviruses than among other families and unknown hosts (*supp mat*), but the small number of host species limits our analyses and could simply introduce a bias.
+There appears to be a trend of larger range areas among molossid that are hosts of betacoronaviruses than among other families and unknown hosts (@sup2), but the small number of host species limits our analyses and could simply introduce a bias.
 Within the four molossids hosts, only two species present significantly higher SV: _Molossus molossus_ and _Mops condylurus_ respectively have SV of 0.39 and 0.38.
 The two other host species (_Mops plicatus_ and _Tadaria brasiliensis_) have SV that are close to the overall average.
 Although there is indeed a relationship between range size and the SV (@trois), it is hard to conclude if this relationship is any more distinct or stronger in the Molossidae than in other families.
@@ -300,11 +300,15 @@ This method can easily be applied to models that have already been trained and c
 
 = Supplementary material 
 
-
+#set figure(
+  kind: "supplement",
+  supplement: [Figure],
+  numbering: n => [S#n]
+)
 
 #figure(
   image("figures/aug_supp1.png"),
-  caption: [bla bla]
+  caption: [Number of unkown host species (gray) and known host species (blue) per family. The families with three or more known host species are used for the family-level analyses.]
 )<sup1>
 
 #figure(

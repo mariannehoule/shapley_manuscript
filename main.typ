@@ -4,6 +4,10 @@
 #import "_style.typ": style
 #show: doc => style(doc)
 
+#import "@preview/wordometer:0.1.5": word-count, total-words
+#show: word-count
+Total word count : #total-words
+
 #let title = "Explainable machine learning reveals the different ways bats can host betacoronaviruses "
 #let abstract = "Predictions given by machine learning models are increasingly being used to identify potential new hosts for zoonotic pathogens and thus provide valuable information to guide zoonotic risk assessment. However, it is often difficult to interpret these predictions from black-box models and assess trustability. Specifically, these predictions do not allow us to understand precisely what makes a certain species a potential novel host for pathogens. Here, we use Shapley values, an explainable machine learning method, to extract learned information about the importance and contribution of input features to individual predictions of pathogen hosting status. By using traits as input features, we train a model to predict the betacoronavirus hosting status of bat species and interpret the results by quantifying the contribution of each input feature. Our results show that there are various ways in which bats can serve as hosts for betacoronaviruses; that is, several traits are important predictors depending on phylogenetic scale. At a global scale, we highlight the importance of biogeographic features of chiropterans in affecting their abilities to host, and possibly to transmit, viruses. However, our results also suggest that traits specific to certain families, such as body mass for the Pteropodidae and interbirth interval for the Phyllostomidae, tend to contribute more importantly for species within the specific family. Finally, we highlight the importance of species-level trait diversity for zoonotic risk predictions."
 
@@ -12,10 +16,6 @@
 #showtitle(title)
 #showauthors(authors, institutions, corresponding_email)
 #showabstract(abstract)
-
-#import "@preview/wordometer:0.1.5": word-count, total-words
-#show: word-count
-Total word count : #total-words
 
 
 #set par.line(numbering: "1")

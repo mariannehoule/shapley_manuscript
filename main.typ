@@ -187,7 +187,7 @@ Sampling efforts in bats appear to be disproportional towards easily captured sp
 
 
 #figure(
-  image("figures/Meeting 24 avril.jpg", width: 80%),
+  image("figures/A.png", width: 90%),
   caption: [*A.* Relationship between SV and the range area value for each species. The gray points represent species that are unknown hosts, while the blue points represent species that are known hosts. *B.* Maximum latitude and mid longitude limits of range for each species and associated SV. Pink color represent lower SV, whereas blue represent higher SV. *C.* Relationship between SV and the mean population density value for each species. The gray points represent species that are unknown hosts, while the blue points represent species that are known hosts.]
 ) <trois>
 
